@@ -1,0 +1,27 @@
+﻿  cAnimatedSprite.cpp
+c:\users\josh\desktop\programming 1\lab 5\project1\canimatedsprite.cpp(28): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\josh\desktop\programming 1\lab 5\project1\canimatedsprite.cpp(74): warning C4018: '<': signed/unsigned mismatch
+  cGameStuVer.cpp
+c:\users\josh\desktop\programming 1\lab 5\project1\cgamestuver.cpp(116): warning C4018: '<': signed/unsigned mismatch
+  RocketsSDL.cpp
+  Generating Code...
+  Project1.vcxproj -> C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Debug\Project1.exe
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Debug\libpng16.dll
+  1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll
+  1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor1.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor2.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor3.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor4.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor5.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\moon.ico
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\planet.gif
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\planet.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\player.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\Road.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\rocketSprite.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\star.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\starscape.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\starscape1024x768.png
+  14 File(s) copied
