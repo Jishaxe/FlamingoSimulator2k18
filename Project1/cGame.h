@@ -36,6 +36,7 @@ public:
 
 	static cGame* getInstance();
 
+	int floorHeight;
 private:
 
 	static cGame* pInstance;
@@ -49,7 +50,8 @@ private:
 	cSprite spriteBkgd;
 	cRocket rocketSprite;
 	cContinuousFloor floor;
-	cAnimatedSprite flamingo;
+	cAnimatedSprite playerSprite;
+	cPlayerController playerController;
 	// Game objects
 	
 

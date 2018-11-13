@@ -17,7 +17,7 @@ static cGame* theGame = cGame::getInstance();
 
 int main(int argc, char *argv[])
 {
-	if (!pgmWNDMgr->initWND(WINDOW_TITLE, 1024, 768))
+	if (!pgmWNDMgr->initWND(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT))
 		return -1;
 
 	theGame->initialise(pgmWNDMgr->getSDLWindow(), pgmWNDMgr->getSDLRenderer());

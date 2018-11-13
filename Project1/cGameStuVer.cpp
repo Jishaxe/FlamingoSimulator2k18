@@ -54,8 +54,7 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theRocket")->getTWidth(), theTextureMgr->getTexture("theRocket")->getTHeight());
 
 	// TODO: Pass width automatically
-	floor = cContinuousFloor(1024, 768);
-	int floorHeight;
+	floor = cContinuousFloor(WINDOW_WIDTH, WINDOW_HEIGHT);
 	// Load textures in from 1 to FLOOR_TEXTURE_COUNT. Uses the number as a prefix
 	for (int i = 1; i < FLOOR_TEXTURE_COUNT + 1; i++) {
 		stringstream fileNameStream;
@@ -73,7 +72,7 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	// Now load the main player, passing the player spritesheet
 	theTextureMgr->addTexture("player", "Images\\player.png");
-	flamingo = cAnimatedSprite(theTextureMgr->getTexture("player"), 150); // Each cell width is 150
+	playerSprite = cAnimatedSprite(theTextureMgr->getTexture("player"), 150); // Each cell width is 150
 
 	// Define the animations and the frame indices for them in the spritesheet
 	int runFrames[] = { 0, 1, 2 };
@@ -82,12 +81,15 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 
 	// Now add the three animations 
-	flamingo.addAnimation("run", runFrames, 3, 15);
-	flamingo.addAnimation("jump", jumpFrames , 1, 0);
-	flamingo.addAnimation("duck", duckFrames, 1, 0);
-	flamingo.setAnimation("run");
+	playerSprite.addAnimation("run", runFrames, 3, 15);
+	playerSprite.addAnimation("jump", jumpFrames , 1, 0);
+	playerSprite.addAnimation("duck", duckFrames, 1, 0);
+	playerSprite.setAnimation("run");
 
-	flamingo.setSpritePos({ 100, 768 - floorHeight - theTextureMgr->getTexture("player")->getTHeight() }); // Screen height take away the floor height take away player height
+	playerSprite.setSpritePos({ PLAYER_X, WINDOW_HEIGHT - floorHeight - theTextureMgr->getTexture("player")->getTHeight() }); // Screen height take away the floor height take away player height
+
+	playerController.playerSprite = &playerSprite;
+	playerController.lowestY = WINDOW_HEIGHT - floorHeight - theTextureMgr->getTexture("player")->getTHeight();
 }
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
@@ -110,7 +112,7 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	SDL_RenderClear(theRenderer);
 	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
 
-	flamingo.render(theRenderer);
+	playerSprite.render(theRenderer);
 
 	// Render the floor segments
 	for (int i = 0; i < this->floor.segments.size(); i++) {
@@ -143,7 +145,8 @@ void cGame::update()
 void cGame::update(double deltaTime)
 {
 	floor.update(deltaTime);
-	flamingo.update(deltaTime);
+	playerSprite.update(deltaTime);
+	playerController.update(deltaTime);
 	rocketSprite.update(deltaTime);
 }
 
@@ -164,12 +167,17 @@ bool cGame::getInput(bool theLoop)
 				case SDLK_ESCAPE:
 					theLoop = false;
 					break;
+				case SDLK_w:
 				case SDLK_SPACE:
 				case SDLK_UP:
 					// Make the player jump here
+					playerController.isJumpHeldDown = true;
 					break;
-				case SDLK_d:
+				case SDLK_s:
+				case SDLK_LCTRL:
+				case SDLK_RCTRL:
 				case SDLK_DOWN:
+					playerController.isDuckHeldDown = true;
 					// Make the player duck here
 					break;
 				default:
@@ -182,13 +190,18 @@ bool cGame::getInput(bool theLoop)
 				case SDLK_ESCAPE:
 					theLoop = false;
 					break;
+				case SDLK_w:
 				case SDLK_SPACE:
 				case SDLK_UP:
 					// Make the player not jump here
+					playerController.isJumpHeldDown = false;
 					break;
-				case SDLK_d:
+				case SDLK_s:
+				case SDLK_LCTRL:
+				case SDLK_RCTRL:
 				case SDLK_DOWN:
 					// Make the player not sduck here
+					playerController.isDuckHeldDown = false;
 					break;
 				default:
 					break;

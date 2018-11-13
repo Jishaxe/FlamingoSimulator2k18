@@ -32,8 +32,19 @@ using namespace std;
 
 //Define the string to appear in the top left corner of the window
 #define WINDOW_TITLE "Flamingo Run"
-
 #define FLOOR_TEXTURE_COUNT 5
+
+// Player consts
+#define JUMP_POWER 10
+#define PLAYER_X 100
+#define GRAVITY 0.3
+
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+
+// Speed the floor moves at
+#define FLOOR_SPEED 400
+
 // This header file contains all the constants & enumarated types for the game
 typedef struct fpoint
 {
