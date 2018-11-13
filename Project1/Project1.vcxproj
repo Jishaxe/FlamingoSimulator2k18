@@ -146,29 +146,31 @@ xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"</Command>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\cAnimatedSprite.cpp" />
-    <ClCompile Include="..\cBkGround.cpp" />
-    <ClCompile Include="..\cGameStuVer.cpp" />
-    <ClCompile Include="..\cContinuousFloor.cpp" />
-    <ClCompile Include="..\cRocketStuVer.cpp" />
-    <ClCompile Include="..\cSDL2WNDManager.cpp" />
-    <ClCompile Include="..\cSprite.cpp" />
-    <ClCompile Include="..\cTexture.cpp" />
-    <ClCompile Include="..\cTextureMgr.cpp" />
-    <ClCompile Include="..\RocketsSDL.cpp" />
+    <ClCompile Include="cAnimatedSprite.cpp" />
+    <ClCompile Include="cBkGround.cpp" />
+    <ClCompile Include="cContinuousFloor.cpp" />
+    <ClCompile Include="cGameStuVer.cpp" />
+    <ClCompile Include="cPlayerController.cpp" />
+    <ClCompile Include="cRocketStuVer.cpp" />
+    <ClCompile Include="cSDL2WNDManager.cpp" />
+    <ClCompile Include="cSprite.cpp" />
+    <ClCompile Include="cTexture.cpp" />
+    <ClCompile Include="cTextureMgr.cpp" />
+    <ClCompile Include="RocketsSDL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\cAnimatedSprite.h" />
-    <ClInclude Include="..\cBkGround.h" />
-    <ClInclude Include="..\cGame.h" />
-    <ClInclude Include="..\cContinuousFloor.h" />
-    <ClInclude Include="..\cRocket.h" />
-    <ClInclude Include="..\cSDL2WNDManager.h" />
-    <ClInclude Include="..\cSprite.h" />
-    <ClInclude Include="..\cTexture.h" />
-    <ClInclude Include="..\cTextureMgr.h" />
-    <ClInclude Include="..\GameConstants.h" />
-    <ClInclude Include="..\rocketGame.h" />
+    <ClInclude Include="cAnimatedSprite.h" />
+    <ClInclude Include="cBkGround.h" />
+    <ClInclude Include="cContinuousFloor.h" />
+    <ClInclude Include="cGame.h" />
+    <ClInclude Include="cPlayerController.h" />
+    <ClInclude Include="cRocket.h" />
+    <ClInclude Include="cSDL2WNDManager.h" />
+    <ClInclude Include="cSprite.h" />
+    <ClInclude Include="cTexture.h" />
+    <ClInclude Include="cTextureMgr.h" />
+    <ClInclude Include="GameConstants.h" />
+    <ClInclude Include="rocketGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

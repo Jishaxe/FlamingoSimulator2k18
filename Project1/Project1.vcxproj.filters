@@ -18,69 +18,75 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\cBkGround.cpp">
+    <ClCompile Include="cAnimatedSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cGameStuVer.cpp">
+    <ClCompile Include="cBkGround.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cRocketStuVer.cpp">
+    <ClCompile Include="cContinuousFloor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cSDL2WNDManager.cpp">
+    <ClCompile Include="cGameStuVer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cSprite.cpp">
+    <ClCompile Include="cPlayerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cTexture.cpp">
+    <ClCompile Include="cRocketStuVer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cTextureMgr.cpp">
+    <ClCompile Include="cSDL2WNDManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\RocketsSDL.cpp">
+    <ClCompile Include="cSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cContinuousFloor.cpp">
+    <ClCompile Include="cTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cAnimatedSprite.cpp">
+    <ClCompile Include="cTextureMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RocketsSDL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\cBkGround.h">
+    <ClInclude Include="cAnimatedSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cGame.h">
+    <ClInclude Include="cBkGround.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cRocket.h">
+    <ClInclude Include="cContinuousFloor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cSDL2WNDManager.h">
+    <ClInclude Include="cGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cSprite.h">
+    <ClInclude Include="cPlayerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cTexture.h">
+    <ClInclude Include="cRocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cTextureMgr.h">
+    <ClInclude Include="cSDL2WNDManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameConstants.h">
+    <ClInclude Include="cSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\rocketGame.h">
+    <ClInclude Include="cTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cContinuousFloor.h">
+    <ClInclude Include="cTextureMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\cAnimatedSprite.h">
+    <ClInclude Include="GameConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rocketGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
