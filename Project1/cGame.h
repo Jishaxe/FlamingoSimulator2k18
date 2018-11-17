@@ -14,8 +14,10 @@ cGame.h
 
 // Game specific includes
 #include "rocketGame.h"
+#include "cObstacleManager.h"
 #include "cContinuousFloor.h"
 #include "cAnimatedSprite.h"
+
 
 using namespace std;
 
@@ -36,6 +38,7 @@ public:
 
 	static cGame* getInstance();
 
+	bool gameover = false;
 	int floorHeight;
 private:
 
@@ -52,9 +55,9 @@ private:
 	cContinuousFloor floor;
 	cAnimatedSprite playerSprite;
 	cPlayerController playerController;
+	cObstacleManager obstacleManager;
+	SDL_Rect playerBoundingBox;
 	// Game objects
-	
-
 };
 
 #endif

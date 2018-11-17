@@ -48,14 +48,17 @@ cTextureMgr::~cTextureMgr()
 	
 }
 
-void cTextureMgr::addTexture(LPCSTR txtName, LPCSTR theFilename)
+cTexture* cTextureMgr::addTexture(LPCSTR txtName, LPCSTR theFilename)
 {
 	if (!getTexture(txtName))
 	{
 		cTexture * newTxt = new cTexture();
 		newTxt->loadTexture(theFilename, theSDLRenderer);
 		textureList.insert(make_pair(txtName, newTxt));
+		return newTxt;
 	}
+
+	return NULL;
 }
 
 void cTextureMgr::deleteTextures()

@@ -35,15 +35,23 @@ using namespace std;
 #define FLOOR_TEXTURE_COUNT 5
 
 // Player consts
-#define JUMP_POWER 10
+#define JUMP_POWER 15
 #define PLAYER_X 100
-#define GRAVITY 0.3
+#define GRAVITY 0.7
 
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
 
 // Speed the floor moves at
-#define FLOOR_SPEED 400
+#define FLOOR_SPEED 10
+
+// Maximum amount of floor obstacles in the floor. After this point, they are reused
+#define FLOOR_OBSTACLE_POOL 3
+#define CLOUD_POOL 4
+#define CLOUD_BASE_HEIGHT 100
+
+// Y position of the air obstacle
+#define AIR_OBSTACLE_Y 400
 
 // This header file contains all the constants & enumarated types for the game
 typedef struct fpoint

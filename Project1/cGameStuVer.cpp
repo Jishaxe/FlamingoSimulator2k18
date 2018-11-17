@@ -86,10 +86,32 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	playerSprite.addAnimation("duck", duckFrames, 1, 0);
 	playerSprite.setAnimation("run");
 
+	// Set the player position to sit on the floor
 	playerSprite.setSpritePos({ PLAYER_X, WINDOW_HEIGHT - floorHeight - theTextureMgr->getTexture("player")->getTHeight() }); // Screen height take away the floor height take away player height
 
+	// Give the sprite to the playercontroller so it can control the player
 	playerController.playerSprite = &playerSprite;
 	playerController.lowestY = WINDOW_HEIGHT - floorHeight - theTextureMgr->getTexture("player")->getTHeight();
+
+	// Give the two cactus textures to the obstacle manager
+	obstacleManager.floorObstaclesTextures.push_back(theTextureMgr->addTexture("cactus1", "Images\\cactus1.png"));
+	obstacleManager.floorObstaclesTextures.push_back(theTextureMgr->addTexture("cactus2", "Images\\cactus2.png"));
+
+	// And the three cloud textures
+	obstacleManager.cloudTextures.push_back(theTextureMgr->addTexture("cloud1", "Images\\cloud1.png"));
+	obstacleManager.cloudTextures.push_back(theTextureMgr->addTexture("cloud2", "Images\\cloud2.png"));
+	obstacleManager.cloudTextures.push_back(theTextureMgr->addTexture("cloud3", "Images\\cloud3.png"));
+
+	// And add the bee animation
+	theTextureMgr->addTexture("bee", "Images\\bee.png");
+	obstacleManager.airObstacle = cAnimatedSprite(theTextureMgr->getTexture("bee"), 150);
+	int flyFrames[] = { 0, 1 };
+	obstacleManager.airObstacle.addAnimation("fly", flyFrames, 2, 3);
+
+	// Just hide the air obstacle for now
+	obstacleManager.airObstacle.setSpritePos({ -150, AIR_OBSTACLE_Y });
+
+	obstacleManager.floorHeight = floorHeight;
 }
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
@@ -114,6 +136,7 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	playerSprite.render(theRenderer);
 
+
 	// Render the floor segments
 	for (int i = 0; i < this->floor.segments.size(); i++) {
 		// Get this segment and its texture and rectangle
@@ -127,27 +150,48 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		// Render this segment
 		segment.texture->renderTexture(theRenderer, tex, NULL, &dest, FPoint() = { 1, 1 });
 	}
-	//rocketSprite.render(theRenderer, &rocketSprite.getSpriteDimensions(), &rocketSprite.getSpritePos(), rocketSprite.getRocketRotation(), &rocketSprite.getSpriteCentre(), rocketSprite.getSpriteScale());
+
+	obstacleManager.render(theRenderer);
+	SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
 	SDL_RenderPresent(theRenderer);
 }
 
 void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer, double rotAngle, SDL_Point* spriteCentre)
 {
-
 	SDL_RenderPresent(theRenderer);
 }
 
 void cGame::update()
 {
-
 }
 
 void cGame::update(double deltaTime)
 {
-	floor.update(deltaTime);
-	playerSprite.update(deltaTime);
-	playerController.update(deltaTime);
-	rocketSprite.update(deltaTime);
+	if (!gameover) {
+		floor.update(deltaTime);
+		playerSprite.update(deltaTime);
+		playerController.update(deltaTime);
+		obstacleManager.update(deltaTime);
+		rocketSprite.update(deltaTime);
+	}
+
+	// The player's bounding box is smaller than the player
+	playerBoundingBox = { playerSprite.getSpritePos().x + 25, playerSprite.getSpritePos().y + 25, 100, 100 };
+
+	// And when it is ducking the box goes down lower
+	if (playerController.isDucking) playerBoundingBox.y += 50;
+
+	// See if it's colliding with any of the floor obstacles
+	for (int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
+		cSprite* obstacle = &obstacleManager.floorObstacles[i];
+		if (obstacle->isCollidingWith(&playerBoundingBox)) {
+			gameover = true;
+			continue;
+		}
+	}
+
+	// See if it's colliding with the air obstacle
+	if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) gameover = true;
 }
 
 bool cGame::getInput(bool theLoop)

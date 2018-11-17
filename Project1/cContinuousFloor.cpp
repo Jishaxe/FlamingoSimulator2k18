@@ -1,7 +1,7 @@
 #include "cContinuousFloor.h"
 
 void cContinuousFloor::update(double deltaTime) {
-	this->x -= FLOOR_SPEED * deltaTime;
+	this->x -= FLOOR_SPEED;//*deltaTime;
 
 	// If this is the first update, fill the segment array to hit both sides of the window
 	if (this->segments.size() == 0) {

@@ -150,6 +150,7 @@ xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"</Command>
     <ClCompile Include="cBkGround.cpp" />
     <ClCompile Include="cContinuousFloor.cpp" />
     <ClCompile Include="cGameStuVer.cpp" />
+    <ClCompile Include="cObstacleManager.cpp" />
     <ClCompile Include="cPlayerController.cpp" />
     <ClCompile Include="cRocketStuVer.cpp" />
     <ClCompile Include="cSDL2WNDManager.cpp" />
@@ -163,6 +164,7 @@ xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"</Command>
     <ClInclude Include="cBkGround.h" />
     <ClInclude Include="cContinuousFloor.h" />
     <ClInclude Include="cGame.h" />
+    <ClInclude Include="cObstacleManager.h" />
     <ClInclude Include="cPlayerController.h" />
     <ClInclude Include="cRocket.h" />
     <ClInclude Include="cSDL2WNDManager.h" />

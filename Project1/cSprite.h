@@ -46,5 +46,8 @@ public:
 	FPoint getSpriteScale();  // Return the sprites scaling factor
 	void setSpriteScale(FPoint sScale); // set the sprites scaling factor
 	void scaleSprite(); // update the sprites width & height
+	bool isCollidingWith(SDL_Rect * b);
+	virtual SDL_Rect getBoundingBox(); 
+	void renderBoundingBox(SDL_Renderer* theRenderer);
 };
 #endif

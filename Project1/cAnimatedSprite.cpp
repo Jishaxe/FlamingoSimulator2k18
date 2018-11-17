@@ -17,6 +17,8 @@ void cAnimatedSprite::render(SDL_Renderer * theRenderer)
 
 	// Render the current frame
 	this->texture->renderTexture(theRenderer, this->texture->getTexture(), frameRect, &destRect, FPoint() = { 1, 1 });
+
+	renderBoundingBox(theRenderer);
 }
 
 void cAnimatedSprite::update(double deltaTime)
@@ -92,4 +94,9 @@ cAnimatedSprite::cAnimatedSprite(cTexture* texture, int cellWidth)
 
 cAnimatedSprite::~cAnimatedSprite()
 {
+}
+
+SDL_Rect cAnimatedSprite::getBoundingBox()
+{
+	return SDL_Rect { this->getSpritePos().x, this->getSpritePos().y, this->cellWidth, this->cellWidth };
 }

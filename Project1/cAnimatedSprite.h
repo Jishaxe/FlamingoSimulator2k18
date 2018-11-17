@@ -33,5 +33,6 @@ public:
 	cAnimatedSprite();
 	cAnimatedSprite(cTexture* texture, int cellWidth);
 	~cAnimatedSprite();
+	virtual SDL_Rect getBoundingBox();
 };
 

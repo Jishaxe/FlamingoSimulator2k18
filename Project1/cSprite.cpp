@@ -93,6 +93,8 @@ void cSprite::setTexture(cTexture* theSpriteTexture)  // set the image of the sp
 void cSprite::render(SDL_Renderer* theRenderer, SDL_Rect* theSourceRect, SDL_Rect* theDestRect, FPoint theScaling)
 {
 	this->spriteTexture->renderTexture(theRenderer, this->spriteTexture->getTexture(), theSourceRect, theDestRect, theScaling);
+
+	renderBoundingBox(theRenderer);
 }
 
 void cSprite::render(SDL_Renderer* theRenderer, SDL_Rect* theSourceRect, SDL_Rect* theDestRect, double rotAngle, SDL_Point* spriteCentre, FPoint theScaling)
@@ -178,4 +180,21 @@ void cSprite::scaleSprite()  // set the sprites current scaling
 	// Scale Sprite Centre for rotation.
 	this->spriteCentre.x = this->spritePos_2D.w / 2;
 	this->spriteCentre.y = this->spritePos_2D.h / 2;
+}
+
+bool cSprite::isCollidingWith(SDL_Rect * b)
+{
+	SDL_Rect a = getBoundingBox();
+
+	return SDL_HasIntersection(&a, b);
+}
+
+SDL_Rect cSprite::getBoundingBox()
+{
+	return SDL_Rect { this->spritePos_2D.x, this->spritePos_2D.y, this->spriteDimensions.w, this->spriteDimensions.h };
+}
+
+void cSprite::renderBoundingBox(SDL_Renderer * theRenderer)
+{
+	SDL_RenderDrawRect(theRenderer, &getBoundingBox());
 }
