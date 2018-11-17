@@ -7,6 +7,7 @@ cGame.cpp
 
 cGame* cGame::pInstance = NULL;
 static cTextureMgr* theTextureMgr = cTextureMgr::getInstance();
+static cFontMgr* theFontMgr = cFontMgr::getInstance();
 
 /*
 =================================================================================
@@ -52,6 +53,14 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	rocketSprite.setSpritePos({ 500, 350 });
 	rocketSprite.setTexture(theTextureMgr->getTexture("theRocket"));
 	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theRocket")->getTWidth(), theTextureMgr->getTexture("theRocket")->getTHeight());
+
+	theFontMgr->initFontLib();
+	vector<LPCSTR> fontList = { "unifont" };
+	vector<LPCSTR> fontsToUse = { "Fonts/unifont.ttf"};
+	for (int fonts = 0; fonts < (int)fontList.size(); fonts++)
+	{
+		theFontMgr->addFont(fontList[fonts], fontsToUse[fonts], 36);
+	}
 
 	// TODO: Pass width automatically
 	floor = cContinuousFloor(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -112,6 +121,8 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	obstacleManager.airObstacle.setSpritePos({ -150, AIR_OBSTACLE_Y });
 
 	obstacleManager.floorHeight = floorHeight;
+
+	scoreManager.loadScore();
 }
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
@@ -152,7 +163,9 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	}
 
 	obstacleManager.render(theRenderer);
-	SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
+
+	scoreManager.render(theRenderer);
+	//SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
 	SDL_RenderPresent(theRenderer);
 }
 
@@ -173,6 +186,10 @@ void cGame::update(double deltaTime)
 		playerController.update(deltaTime);
 		obstacleManager.update(deltaTime);
 		rocketSprite.update(deltaTime);
+		scoreManager.update(deltaTime);
+
+		scoreManager.currentScore++;
+		if (scoreManager.currentScore > scoreManager.highScore) scoreManager.highScore = scoreManager.currentScore;
 	}
 
 	// The player's bounding box is smaller than the player
@@ -265,6 +282,9 @@ double cGame::getElapsedSeconds()
 
 void cGame::cleanUp(SDL_Window* theSDLWND)
 {
+	// Save the high score
+	scoreManager.saveScore();
+
 	// Delete our OpengL context
 	SDL_GL_DeleteContext(theSDLWND);
 

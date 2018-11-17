@@ -18,7 +18,7 @@ void cAnimatedSprite::render(SDL_Renderer * theRenderer)
 	// Render the current frame
 	this->texture->renderTexture(theRenderer, this->texture->getTexture(), frameRect, &destRect, FPoint() = { 1, 1 });
 
-	renderBoundingBox(theRenderer);
+	//renderBoundingBox(theRenderer);
 }
 
 void cAnimatedSprite::update(double deltaTime)

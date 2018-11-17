@@ -35,7 +35,7 @@ using namespace std;
 #define FLOOR_TEXTURE_COUNT 5
 
 // Player consts
-#define JUMP_POWER 15
+#define JUMP_POWER 18
 #define PLAYER_X 100
 #define GRAVITY 0.7
 
@@ -65,4 +65,5 @@ inline SDL_Point operator+(SDL_Point const &a, SDL_Point const &b)
 	return SDL_Point{ a.x + b.x , a.y + b.y };
 }
 
+enum class textType { solid, blended, shaded };
 #endif

@@ -17,6 +17,8 @@ cGame.h
 #include "cObstacleManager.h"
 #include "cContinuousFloor.h"
 #include "cAnimatedSprite.h"
+#include "cScoreManager.h"
+#include "cFontMgr.h"
 
 
 using namespace std;
@@ -56,6 +58,7 @@ private:
 	cAnimatedSprite playerSprite;
 	cPlayerController playerController;
 	cObstacleManager obstacleManager;
+	cScoreManager scoreManager;
 	SDL_Rect playerBoundingBox;
 	// Game objects
 };
