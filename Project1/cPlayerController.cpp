@@ -11,7 +11,14 @@ cPlayerController::~cPlayerController()
 {
 }
 
-
+// Simply sinks the player through the floor
+void cPlayerController::deathAnimation(double deltaTime) {
+	playerSprite->setAnimation("jump");
+	verticalVelocity += GRAVITY / 2;
+	SDL_Rect playerPosition = playerSprite->getSpritePos();
+	playerPosition.y += verticalVelocity;
+	playerSprite->setSpritePos(playerPosition);
+}
 
 void cPlayerController::update(double deltaTime)
 {

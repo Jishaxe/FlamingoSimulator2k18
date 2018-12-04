@@ -10,8 +10,6 @@ public:
 	bool isJumpHeldDown = false;
 	bool isDuckHeldDown = false;
 
-	
-
 	// If the player is on the floor
 	bool isOnFloor = true;
 
@@ -25,6 +23,7 @@ public:
 	int lowestY;
 
 	void update(double deltaTime);
+	void deathAnimation(double deltaTime);
 	cPlayerController();
 	~cPlayerController();
 };

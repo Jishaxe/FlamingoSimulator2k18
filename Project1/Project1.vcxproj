@@ -160,6 +160,7 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cFontMgr.cpp" />
     <ClCompile Include="cGameStuVer.cpp" />
+    <ClCompile Include="cMainMenu.cpp" />
     <ClCompile Include="cObstacleManager.cpp" />
     <ClCompile Include="cPlayerController.cpp" />
     <ClCompile Include="cRocketStuVer.cpp" />
@@ -177,6 +178,7 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cFontMgr.h" />
     <ClInclude Include="cGame.h" />
+    <ClInclude Include="cMainMenu.h" />
     <ClInclude Include="cObstacleManager.h" />
     <ClInclude Include="cPlayerController.h" />
     <ClInclude Include="cRocket.h" />

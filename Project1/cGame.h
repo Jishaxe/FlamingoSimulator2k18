@@ -19,6 +19,7 @@ cGame.h
 #include "cAnimatedSprite.h"
 #include "cScoreManager.h"
 #include "cFontMgr.h"
+#include "cMainMenu.h"
 
 
 using namespace std;
@@ -40,6 +41,7 @@ public:
 
 	static cGame* getInstance();
 
+	bool loop = true;
 	bool gameover = false;
 	int floorHeight;
 private:
@@ -59,6 +61,7 @@ private:
 	cPlayerController playerController;
 	cObstacleManager obstacleManager;
 	cScoreManager scoreManager;
+	cMainMenu mainMenu;
 	SDL_Rect playerBoundingBox;
 	// Game objects
 };

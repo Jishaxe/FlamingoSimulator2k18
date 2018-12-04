@@ -123,11 +123,19 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	obstacleManager.floorHeight = floorHeight;
 
 	scoreManager.loadScore();
+
+	// And the main menu
+	mainMenu.background.setTexture(theTextureMgr->addTexture("mainmenu", "Images\\mainmenu.png"));
+
+	mainMenu.goButtonUnpressed = theTextureMgr->addTexture("go", "Images\\go.png");
+	mainMenu.goButtonPressed = theTextureMgr->addTexture("gopressed", "Images\\gopressed.png");
+	mainMenu.quitButtonUnpressed = theTextureMgr->addTexture("quit", "Images\\quit.png");
+	mainMenu.quitButtonPressed = theTextureMgr->addTexture("quitPressed", "Images\\quitPressed.png");
 }
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 {
-	bool loop = true;
+	loop = true;
 
 	while (loop)
 	{
@@ -166,6 +174,11 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	scoreManager.render(theRenderer);
 	//SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
+
+	if (mainMenu.active) {
+		mainMenu.render(theRenderer);
+	}
+
 	SDL_RenderPresent(theRenderer);
 }
 
@@ -180,35 +193,50 @@ void cGame::update()
 
 void cGame::update(double deltaTime)
 {
-	if (!gameover) {
+	if (!gameover && !mainMenu.active) {
+		// If the game is not over and the main menu is not active, update all the components of the main game
 		floor.update(deltaTime);
 		playerSprite.update(deltaTime);
 		playerController.update(deltaTime);
 		obstacleManager.update(deltaTime);
 		rocketSprite.update(deltaTime);
 		scoreManager.update(deltaTime);
-
+		
+		// Increase the score for every tick we are alive
 		scoreManager.currentScore++;
+
+		// And increase the high score if the current score is higher
 		if (scoreManager.currentScore > scoreManager.highScore) scoreManager.highScore = scoreManager.currentScore;
-	}
 
-	// The player's bounding box is smaller than the player
-	playerBoundingBox = { playerSprite.getSpritePos().x + 25, playerSprite.getSpritePos().y + 25, 100, 100 };
+		// The player's bounding box is smaller than the player
+		playerBoundingBox = { playerSprite.getSpritePos().x + 25, playerSprite.getSpritePos().y + 25, 100, 100 };
 
-	// And when it is ducking the box goes down lower
-	if (playerController.isDucking) playerBoundingBox.y += 50;
+		// And when it is ducking the box goes down lower
+		if (playerController.isDucking) playerBoundingBox.y += 50;
 
-	// See if it's colliding with any of the floor obstacles
-	for (int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
-		cSprite* obstacle = &obstacleManager.floorObstacles[i];
-		if (obstacle->isCollidingWith(&playerBoundingBox)) {
-			gameover = true;
-			continue;
+		// See if it's colliding with any of the floor obstacles
+		for (int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
+			cSprite* obstacle = &obstacleManager.floorObstacles[i];
+			if (obstacle->isCollidingWith(&playerBoundingBox)) {
+				gameover = true;
+				playerController.verticalVelocity = -JUMP_POWER;
+				continue;
+			}
 		}
+
+		// See if it's colliding with the air obstacle
+		if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) gameover = true;
 	}
 
-	// See if it's colliding with the air obstacle
-	if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) gameover = true;
+	// Only update the main menu if it's active
+	if (mainMenu.active) {
+		mainMenu.update(deltaTime);
+	}
+
+	if (gameover) {
+		playerController.deathAnimation(deltaTime);
+		mainMenu.updateGameOverScreen(deltaTime);
+	}
 }
 
 bool cGame::getInput(bool theLoop)

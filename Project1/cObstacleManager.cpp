@@ -31,7 +31,7 @@ void cObstacleManager::update(double deltaTime)
 
 	// Do we choose to spawn a floor obstacle in this update? 2% chance
 	// Also don't spawn any cacti when there is a bee
-	if (rand() % 100 + 1 > 99 && airObstacle.getSpritePos().x > 0) {
+	if (rand() % 100 + 1 > 99 && airObstacle.getSpritePos().x < 0) {
 
 		// Okay, we're spawning an obstacle, but do we spawn it in a set of 1, 2 or 3?
 		int setOfCacti = rand() % 100 + 1;
