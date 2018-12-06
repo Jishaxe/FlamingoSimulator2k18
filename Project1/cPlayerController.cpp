@@ -24,13 +24,15 @@ void cPlayerController::update(double deltaTime)
 {
 	// If the jump key has been held down and it is on the floor
 	if (isJumpHeldDown && isOnFloor) {
+		cSoundMgr::getInstance()->getSnd("jump")->play(0);
 		verticalVelocity = -JUMP_POWER;
 		isOnFloor = false;
 		playerSprite->setAnimation("jump");
 	}
 
 	// If the duck button is held down and player is on floor, set ducking animation
-	if (isDuckHeldDown && isOnFloor) {
+	if (isDuckHeldDown && isOnFloor && !isDucking) {
+		cSoundMgr::getInstance()->getSnd("duck")->play(0);
 		playerSprite->setAnimation("duck");
 		isDucking = true;
 	}

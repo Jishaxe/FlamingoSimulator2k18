@@ -1,7 +1,5 @@
 ﻿  cGameStuVer.cpp
-  cMainMenu.cpp
-  cPlayerController.cpp
-  FlamingoRun.cpp
+  cMenuManager.cpp
   Generating Code...
   Project1.vcxproj -> C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Debug\Project1.exe
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Debug\libpng16.dll
@@ -10,6 +8,7 @@
   1 File(s) copied
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll
   1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\background.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\bee.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cactus1.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cactus2.png
@@ -25,8 +24,6 @@
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\go.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\gopressed.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\mainmenu.png
-  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\moon.ico
-  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\planet.gif
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\planet.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\player.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\quit.png
@@ -34,10 +31,14 @@
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\replayButton.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\replayButtonPressed.png
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\Road.png
-  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\rocketSprite.png
-  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\star.png
-  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\starscape.png
-  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\starscape1024x768.png
-  28 File(s) copied
+  23 File(s) copied
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Fonts\unifont.ttf
   1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\death-old1.wav
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\death.wav
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\duck.mp3
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\endgametheme.mp3
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\ingametheme.mp3
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\jump.wav
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\mainmenutheme.mp3
+  7 File(s) copied

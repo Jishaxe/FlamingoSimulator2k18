@@ -29,6 +29,7 @@ public:
 	cSound* getSnd(LPCSTR sndName);
 	void deleteSnd();
 	bool initMixer();
+	void stopMusic();
 	static cSoundMgr* getInstance();
 };
 #endif

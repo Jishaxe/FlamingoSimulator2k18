@@ -19,8 +19,9 @@ cGame.h
 #include "cContinuousFloor.h"
 #include "cAnimatedSprite.h"
 #include "cScoreManager.h"
+#include "cSoundMgr.h"
 #include "cFontMgr.h"
-#include "cMainMenu.h"
+#include "cMenuManager.h"
 
 
 using namespace std;
@@ -41,17 +42,21 @@ public:
 	bool getInput(bool theLoop);
 	double getElapsedSeconds();
 	static cGame* getInstance();
-
+	gameState theGameState;
 	bool loop = true;
-	bool gameover = false;
 	int floorHeight;
 private:
-	cMainMenu mainMenu;
+	cMenuManager menuManager;
 	static cGame* pInstance;
 	// for framerates
 	time_point< high_resolution_clock > m_lastTime;
 	time_point< high_resolution_clock > m_CurrentTime;
 	duration< double > deltaTime;
+
+	// Game Sounds
+	vector<LPCSTR> soundList;
+	vector<soundType> soundTypes;
+	vector<LPCSTR> soundsToUse;
 
 	// game related variables
 	// Sprites for displaying background and rocket textures

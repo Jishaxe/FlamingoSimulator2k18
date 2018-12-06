@@ -21,7 +21,6 @@ public:
 
 	// the lowest Y that the player can be (the floor)
 	int lowestY;
-
 	void update(double deltaTime);
 	void deathAnimation(double deltaTime);
 	cPlayerController();

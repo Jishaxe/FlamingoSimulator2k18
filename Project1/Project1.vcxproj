@@ -85,7 +85,8 @@
 xcopy /Y "$(ProjectDir)..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"
-xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
+xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"
+xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -103,7 +104,8 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
 xcopy /Y "$(ProjectDir)..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"
-xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
+xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"
+xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -125,7 +127,8 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
 xcopy /Y "$(ProjectDir)..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"
-xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
+xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"
+xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,7 +150,8 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
 xcopy /Y "$(ProjectDir)..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"
-xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
+xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"
+xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -160,7 +164,7 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cFontMgr.cpp" />
     <ClCompile Include="cGameStuVer.cpp" />
-    <ClCompile Include="cMainMenu.cpp" />
+    <ClCompile Include="cMenuManager.cpp" />
     <ClCompile Include="cObstacleManager.cpp" />
     <ClCompile Include="cPlayerController.cpp" />
     <ClCompile Include="cScoreManager.cpp" />
@@ -179,7 +183,7 @@ xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"</Command>
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cFontMgr.h" />
     <ClInclude Include="cGame.h" />
-    <ClInclude Include="cMainMenu.h" />
+    <ClInclude Include="cMenuManager.h" />
     <ClInclude Include="cObstacleManager.h" />
     <ClInclude Include="cPlayerController.h" />
     <ClInclude Include="cScoreManager.h" />

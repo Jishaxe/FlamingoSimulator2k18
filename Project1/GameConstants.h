@@ -55,6 +55,7 @@ using namespace std;
 
 // Amount of time to debounce the exit button for 
 #define TIME_TO_DEBOUNCE_EXIT_BUTTON 0.5
+
 // This header file contains all the constants & enumarated types for the game
 typedef struct fpoint
 {
@@ -69,4 +70,5 @@ inline SDL_Point operator+(SDL_Point const &a, SDL_Point const &b)
 
 enum class textType { solid, blended, shaded };
 enum class soundType { sfx, music };
+enum class gameState { mainmenu, ingame, gameover };
 #endif

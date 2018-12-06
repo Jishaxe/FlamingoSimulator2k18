@@ -80,6 +80,11 @@ bool cSoundMgr::initMixer()
 	return true;
 }
 
+void cSoundMgr::stopMusic()
+{
+	Mix_HaltMusic();
+}
+
 cSoundMgr::~cSoundMgr()
 {
 	deleteSnd();

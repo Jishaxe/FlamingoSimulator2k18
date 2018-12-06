@@ -8,6 +8,7 @@ cGame.cpp
 cGame* cGame::pInstance = NULL;
 static cTextureMgr* theTextureMgr = cTextureMgr::getInstance();
 static cFontMgr* theFontMgr = cFontMgr::getInstance();
+static cSoundMgr* theSoundMgr = cSoundMgr::getInstance();
 
 /*
 =================================================================================
@@ -36,6 +37,7 @@ using namespace std;
 
 void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 {
+	theGameState = gameState::mainmenu;
 	// Clear the buffer with a black background
 	SDL_SetRenderDrawColor(theRenderer, 255, 255, 255, 255);
 	SDL_RenderPresent(theRenderer);
@@ -43,19 +45,33 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	this->m_lastTime = high_resolution_clock::now();
 
 	theTextureMgr->setRenderer(theRenderer);
-	theTextureMgr->addTexture("theBackground", "Images\\starscape1024x768.png");
+	theTextureMgr->addTexture("theBackground", "Images\\background.png");
 	
 	spriteBkgd.setSpritePos({ 0, 0 });
 	spriteBkgd.setTexture(theTextureMgr->getTexture("theBackground"));
 	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theBackground")->getTWidth(), theTextureMgr->getTexture("theBackground")->getTHeight());
 
 	theFontMgr->initFontLib();
+	theSoundMgr->initMixer();
+
 	vector<LPCSTR> fontList = { "unifont" };
 	vector<LPCSTR> fontsToUse = { "Fonts/unifont.ttf"};
 	for (int fonts = 0; fonts < (int)fontList.size(); fonts++)
 	{
 		theFontMgr->addFont(fontList[fonts], fontsToUse[fonts], 36);
 	}
+
+	// Load game sounds
+	soundList = { "mainmenutheme", "ingametheme", "endgametheme", "jump", "death", "duck"};
+	soundTypes = { soundType::music, soundType::music, soundType::music, soundType::sfx, soundType::sfx, soundType::sfx};
+	soundsToUse = { "Sounds/mainmenutheme.mp3", "Sounds/ingametheme.mp3", "Sounds/endgametheme.mp3", "Sounds/jump.wav", "Sounds/death.wav", "Sounds/duck.mp3"};
+	for (unsigned int sounds = 0; sounds < soundList.size(); sounds++)
+	{
+		theSoundMgr->add(soundList[sounds], soundsToUse[sounds], soundTypes[sounds]);
+	}
+
+	// Play the main menu theme
+	theSoundMgr->getSnd("mainmenutheme")->play(-1);
 
 	// TODO: Pass width automatically
 	floor = cContinuousFloor(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -120,15 +136,19 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	scoreManager.loadScore();
 
 	// And the main menu
-	mainMenu.background.setTexture(theTextureMgr->addTexture("mainmenu", "Images\\mainmenu.png"));
-	mainMenu.gameOverBackground.setTexture(theTextureMgr->addTexture("endmenu", "Images\\endmenu.png"));
+	menuManager.background.setTexture(theTextureMgr->addTexture("mainmenu", "Images\\mainmenu.png"));
+	menuManager.gameOverBackground.setTexture(theTextureMgr->addTexture("endmenu", "Images\\endmenu.png"));
 
-	mainMenu.goButtonUnpressed = theTextureMgr->addTexture("go", "Images\\go.png");
-	mainMenu.goButtonPressed = theTextureMgr->addTexture("gopressed", "Images\\gopressed.png");
-	mainMenu.quitButtonUnpressed = theTextureMgr->addTexture("quit", "Images\\quit.png");
-	mainMenu.quitButtonPressed = theTextureMgr->addTexture("quitPressed", "Images\\quitPressed.png");
-	mainMenu.replayButtonUnpressed = theTextureMgr->addTexture("replayButton", "Images\\replayButton.png");
-	mainMenu.replayButtonPressed = theTextureMgr->addTexture("replayButtonPressed", "Images\\replayButtonPressed.png");
+	menuManager.goButtonUnpressed = theTextureMgr->addTexture("go", "Images\\go.png");
+	menuManager.goButtonPressed = theTextureMgr->addTexture("gopressed", "Images\\gopressed.png");
+	menuManager.quitButtonUnpressed = theTextureMgr->addTexture("quit", "Images\\quit.png");
+	menuManager.quitButtonPressed = theTextureMgr->addTexture("quitPressed", "Images\\quitPressed.png");
+	menuManager.replayButtonUnpressed = theTextureMgr->addTexture("replayButton", "Images\\replayButton.png");
+	menuManager.replayButtonPressed = theTextureMgr->addTexture("replayButtonPressed", "Images\\replayButtonPressed.png");
+
+	menuManager.goButton.setTexture(menuManager.goButtonUnpressed);
+	menuManager.quitButton.setTexture(menuManager.quitButtonUnpressed);
+	menuManager.replayButton.setTexture(menuManager.replayButtonUnpressed);
 }
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
@@ -170,12 +190,14 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	//SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
 
-	if (mainMenu.active) {
-		mainMenu.render(theRenderer);
+	// Render main menu if that is the state
+	if (theGameState == gameState::mainmenu) {
+		menuManager.render(theRenderer);
 	}
 
-	if (gameover) {
-		mainMenu.renderGameOver(theRenderer);
+	// Render game over if that is the state
+	if (theGameState == gameState::gameover) {
+		menuManager.renderGameOver(theRenderer);
 	}
 
 	scoreManager.render(theRenderer);
@@ -194,57 +216,69 @@ void cGame::update()
 
 void cGame::update(double deltaTime)
 {
-	if (!gameover && !mainMenu.active) {
-		// If the game is not over and the main menu is not active, update all the components of the main game
-		floor.update(deltaTime);
-		playerSprite.update(deltaTime);
-		playerController.update(deltaTime);
-		obstacleManager.update(deltaTime);
-		scoreManager.update(deltaTime);
+	switch (theGameState) {
+		case gameState::ingame:
+			// If the game is not over and the main menu is not active, update all the components of the main game
+			floor.update(deltaTime);
+			playerSprite.update(deltaTime);
+			playerController.update(deltaTime);
+			obstacleManager.update(deltaTime);
+			scoreManager.update(deltaTime);
 		
-		// Increase the score for every tick we are alive
-		scoreManager.currentScore++;
+			// Increase the score for every tick we are alive
+			scoreManager.currentScore++;
 
-		// And increase the high score if the current score is higher
-		if (scoreManager.currentScore > scoreManager.highScore) scoreManager.highScore = scoreManager.currentScore;
+			// And increase the high score if the current score is higher
+			if (scoreManager.currentScore > scoreManager.highScore) scoreManager.highScore = scoreManager.currentScore;
 
-		// The player's bounding box is smaller than the player
-		playerBoundingBox = { playerSprite.getSpritePos().x + 25, playerSprite.getSpritePos().y + 25, 100, 100 };
+			// The player's bounding box is smaller than the player
+			playerBoundingBox = { playerSprite.getSpritePos().x + 25, playerSprite.getSpritePos().y + 25, 100, 100 };
 
-		// And when it is ducking the box goes down lower
-		if (playerController.isDucking) playerBoundingBox.y += 50;
+			// And when it is ducking the box goes down lower
+			if (playerController.isDucking) playerBoundingBox.y += 50;
 
-		// See if it's colliding with any of the floor obstacles
-		for (unsigned int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
-			cSprite* obstacle = &obstacleManager.floorObstacles[i];
-			if (obstacle->isCollidingWith(&playerBoundingBox)) {
-				gameover = true;
+			// See if it's colliding with any of the floor obstacles
+			for (unsigned int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
+				cSprite* obstacle = &obstacleManager.floorObstacles[i];
+				if (obstacle->isCollidingWith(&playerBoundingBox)) {
+					theGameState = gameState::gameover;
 
-				playerController.verticalVelocity = -JUMP_POWER;
+					// Play the game over sound
+					cSoundMgr::getInstance()->stopMusic();
+					cSoundMgr::getInstance()->getSnd("endgametheme")->play(-1);
+
+					cSoundMgr::getInstance()->getSnd("death")->play(0);
+					// Launch the boye into the air
+					playerController.verticalVelocity = -JUMP_POWER;
+
+					// Save the high score
+					scoreManager.saveScore();
+					continue;
+				}
+			}
+
+			// See if it's colliding with the air obstacle
+			if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) {
+				theGameState = gameState::gameover;
+
+				// Play the game over sound
+				cSoundMgr::getInstance()->stopMusic();
+				cSoundMgr::getInstance()->getSnd("endgametheme")->play(-1);
+				cSoundMgr::getInstance()->getSnd("death")->play(0);
 
 				// Save the high score
 				scoreManager.saveScore();
-				continue;
 			}
-		}
+			
+			break;
 
-		// See if it's colliding with the air obstacle
-		if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) {
-			gameover = true;
-
-			// Save the high score
-			scoreManager.saveScore();
-		}
-	}
-
-	// Only update the main menu if it's active
-	if (mainMenu.active) {
-		mainMenu.update(deltaTime);
-	}
-
-	if (gameover) {
-		playerController.deathAnimation(deltaTime);
-		mainMenu.updateGameOver(deltaTime);
+		case gameState::mainmenu:
+			menuManager.update(deltaTime);
+			break;
+		case gameState::gameover:
+			playerController.deathAnimation(deltaTime);
+			menuManager.updateGameOver(deltaTime);
+			break;
 	}
 }
 
@@ -337,6 +371,8 @@ void cGame::cleanUp(SDL_Window* theSDLWND)
 
 void cGame::replay()
 {
+	theSoundMgr->stopMusic();
+	theSoundMgr->getSnd("ingametheme")->play(-1);
 	scoreManager.currentScore = 0;
 	playerSprite.setAnimation("run");
 	playerController.isOnFloor = true;
