@@ -26,7 +26,7 @@ public:
 	~cMainMenu();
 
 private:
-	float timeSinceDroppedToMainMenu; // This is set as a workaround - the exit button on the main menu will wait a 
+	double timeSinceDroppedToMainMenu; // This is set as a workaround - the exit button on the main menu will wait a 
 	// moment before getting clicks after dropping from the end menu and this variable measures that time
 };
 

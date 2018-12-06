@@ -19,7 +19,7 @@ private:
 	int cellWidth; // Width of each cell
 	int currentFrame; // Current frame, is an index to the frames list of the current animation
 	std::vector<Animation> animations; // List of animations. TODO: This would be better as a hashset.
-	float secondsSinceLastAnimationFrame; // Times the amount of seconds elapsed since the last frame was switched
+	double secondsSinceLastAnimationFrame; // Times the amount of seconds elapsed since the last frame was switched
 public:
 	Animation* currentAnimation;
 	// Renders the animation. Calculates destination rectangle from the underlying sprite's position and the source rectangle from the current frame.

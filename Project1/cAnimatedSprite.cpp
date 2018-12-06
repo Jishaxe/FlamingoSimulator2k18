@@ -73,7 +73,7 @@ void cAnimatedSprite::addAnimation(std::string name, int frames[], int frameCoun
 void cAnimatedSprite::setAnimation(std::string name)
 {
 	// Search for the animation and grab the reference when found
-	for (int i = 0; i < this->animations.size(); i++) {
+	for (unsigned int i = 0; i < this->animations.size(); i++) {
 		if (this->animations[i].name == name) this->currentAnimation = &this->animations[i];
 	}
 

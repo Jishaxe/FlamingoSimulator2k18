@@ -17,7 +17,7 @@ public:
 	bool isDucking = false;
 
 	// Vertical velocity of the player
-	float verticalVelocity = 0;
+	double verticalVelocity = 0;
 
 	// the lowest Y that the player can be (the floor)
 	int lowestY;

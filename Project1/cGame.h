@@ -13,8 +13,9 @@ cGame.h
 #include <sstream>
 
 // Game specific includes
-#include "rocketGame.h"
+#include "flamingoRun.h"
 #include "cObstacleManager.h"
+#include "cPlayerController.h"
 #include "cContinuousFloor.h"
 #include "cAnimatedSprite.h"
 #include "cScoreManager.h"
@@ -55,7 +56,6 @@ private:
 	// game related variables
 	// Sprites for displaying background and rocket textures
 	cSprite spriteBkgd;
-	cRocket rocketSprite;
 	cContinuousFloor floor;
 	cAnimatedSprite playerSprite;
 	cPlayerController playerController;

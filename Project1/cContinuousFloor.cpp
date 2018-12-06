@@ -9,7 +9,7 @@ void cContinuousFloor::update(double deltaTime) {
 		segmentWidth = textures[0]->getTWidth();
 
 		// Calculate the amount of segments needed to fill the screen
-		int segmentCountToFillScreen = ceil(this->screenWidth / segmentWidth);
+		int segmentCountToFillScreen = (int)ceil(this->screenWidth / segmentWidth);
 
 		// Now populate the segments going from left to right (with an extra two either directionas a buffer)
 		for (int i = -2; i < segmentCountToFillScreen + 2; i++) {
@@ -39,7 +39,7 @@ FloorSegmentPosition* cContinuousFloor::getRightSegment() {
 	FloorSegmentPosition* result = NULL;
 	int highestX = 0;
 
-	for (int i = 0; i < segments.size(); i++) {
+	for (unsigned int i = 0; i < segments.size(); i++) {
 		if (segments[i].rect.x > highestX) {
 			result = &segments[i];
 			highestX = result->rect.x;
@@ -52,9 +52,9 @@ FloorSegmentPosition* cContinuousFloor::getRightSegment() {
 // Gets the segment with the lowest x
 FloorSegmentPosition* cContinuousFloor::getLeftSegment() {
 	FloorSegmentPosition* result = NULL;
-	int lowestX = 9999999999;
+	int lowestX = 9999999;
 
-	for (int i = 0; i < segments.size(); i++) {
+	for (unsigned int i = 0; i < segments.size(); i++) {
 		if (segments[i].rect.x < lowestX) {
 			result = &segments[i];
 			lowestX = result->rect.x;
@@ -82,7 +82,7 @@ cContinuousFloor::cContinuousFloor(int screenWidth, int screenHeight)
 	this->screenHeight = screenHeight;
 
 	// Seed the random engine
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 }
 
 

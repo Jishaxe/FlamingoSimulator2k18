@@ -16,7 +16,7 @@ void cPlayerController::deathAnimation(double deltaTime) {
 	playerSprite->setAnimation("jump");
 	verticalVelocity += GRAVITY / 2;
 	SDL_Rect playerPosition = playerSprite->getSpritePos();
-	playerPosition.y += verticalVelocity;
+	playerPosition.y += (int)verticalVelocity;
 	playerSprite->setSpritePos(playerPosition);
 }
 
@@ -43,7 +43,7 @@ void cPlayerController::update(double deltaTime)
 	}
 
 	SDL_Rect playerPosition = playerSprite->getSpritePos();
-	playerPosition.y += verticalVelocity;
+	playerPosition.y += (int)verticalVelocity;
 
 	// If the player has sunk below the floor
 	if (playerPosition.y > lowestY) {

@@ -4,12 +4,12 @@
 void cObstacleManager::update(double deltaTime)
 {
 	SDL_Rect airObstaclePos = airObstacle.getSpritePos();
-	airObstaclePos.x -= FLOOR_SPEED / 1.5;
+	airObstaclePos.x -= (int)(FLOOR_SPEED / 1.5);
 	airObstacle.setSpritePos(airObstaclePos);
 	airObstacle.update(deltaTime);
 
 	// Move all the floor obstacles by floor speed
-	for (int i = 0; i < floorObstacles.size(); i++) {
+	for (unsigned int i = 0; i < floorObstacles.size(); i++) {
 		cSprite* floor = &floorObstacles[i];
 		SDL_Rect position = floor->getSpritePos();
 
@@ -19,7 +19,7 @@ void cObstacleManager::update(double deltaTime)
 	}
 
 	// Move all the cloud obstacles but slower
-	for (int i = 0; i < clouds.size(); i++) {
+	for (unsigned int i = 0; i < clouds.size(); i++) {
 		cSprite* cloud = &clouds[i];
 		SDL_Rect position = cloud->getSpritePos();
 
@@ -81,7 +81,7 @@ void cObstacleManager::spawnFloorObstacle(int xposition)
 		cSprite* leftMostObstacle = NULL;
 
 		// Keep going through all the floor obstacles, re-setting the leftMostObstacle every time we find a new obstacle
-		for (int i = 0; i < floorObstacles.size(); i++) {
+		for (unsigned int i = 0; i < floorObstacles.size(); i++) {
 			cSprite* ob = &floorObstacles[i];
 			SDL_Rect pos = ob->getSpritePos();
 			if (pos.x < leftMostX) {
@@ -125,7 +125,7 @@ void cObstacleManager::spawnCloud()
 		cSprite* leftMostCloud = NULL;
 
 		// Keep going through all the floor obstacles, re-setting the leftMostObstacle every time we find a new obstacle
-		for (int i = 0; i < clouds.size(); i++) {
+		for (unsigned int i = 0; i < clouds.size(); i++) {
 			cSprite* ob = &clouds[i];
 			SDL_Rect pos = ob->getSpritePos();
 			if (pos.x < leftMostX) {
@@ -157,7 +157,7 @@ void cObstacleManager::render(SDL_Renderer * renderer)
 	airObstacle.render(renderer);
 
 	// Render cacti
-	for (int i = 0; i < floorObstacles.size(); i++) {
+	for (unsigned int i = 0; i < floorObstacles.size(); i++) {
 		cSprite* floor = &floorObstacles[i];
 		SDL_Rect destRect = floor->getSpritePos();
 		destRect.w = floor->getTexture()->getTWidth();
@@ -166,7 +166,7 @@ void cObstacleManager::render(SDL_Renderer * renderer)
 	}
 
 	// Render clouds
-	for (int i = 0; i < clouds.size(); i++) {
+	for (unsigned int i = 0; i < clouds.size(); i++) {
 		cSprite* cloud = &clouds[i];
 		SDL_Rect destRect = cloud->getSpritePos();
 		destRect.w = cloud->getTexture()->getTWidth();
@@ -177,7 +177,7 @@ void cObstacleManager::render(SDL_Renderer * renderer)
 
 cObstacleManager::cObstacleManager()
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 }
 
 

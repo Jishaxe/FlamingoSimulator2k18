@@ -49,11 +49,6 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	spriteBkgd.setTexture(theTextureMgr->getTexture("theBackground"));
 	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theBackground")->getTWidth(), theTextureMgr->getTexture("theBackground")->getTHeight());
 
-	theTextureMgr->addTexture("theRocket", "Images\\rocketSprite.png");
-	rocketSprite.setSpritePos({ 500, 350 });
-	rocketSprite.setTexture(theTextureMgr->getTexture("theRocket"));
-	spriteBkgd.setSpriteDimensions(theTextureMgr->getTexture("theRocket")->getTWidth(), theTextureMgr->getTexture("theRocket")->getTHeight());
-
 	theFontMgr->initFontLib();
 	vector<LPCSTR> fontList = { "unifont" };
 	vector<LPCSTR> fontsToUse = { "Fonts/unifont.ttf"};
@@ -157,7 +152,7 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
 
 	// Render the floor segments
-	for (int i = 0; i < this->floor.segments.size(); i++) {
+	for (unsigned int i = 0; i < this->floor.segments.size(); i++) {
 		// Get this segment and its texture and rectangle
 		FloorSegmentPosition segment = this->floor.segments[i];
 		SDL_Texture* tex = segment.texture->getTexture();
@@ -205,7 +200,6 @@ void cGame::update(double deltaTime)
 		playerSprite.update(deltaTime);
 		playerController.update(deltaTime);
 		obstacleManager.update(deltaTime);
-		rocketSprite.update(deltaTime);
 		scoreManager.update(deltaTime);
 		
 		// Increase the score for every tick we are alive
@@ -221,7 +215,7 @@ void cGame::update(double deltaTime)
 		if (playerController.isDucking) playerBoundingBox.y += 50;
 
 		// See if it's colliding with any of the floor obstacles
-		for (int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
+		for (unsigned int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
 			cSprite* obstacle = &obstacleManager.floorObstacles[i];
 			if (obstacle->isCollidingWith(&playerBoundingBox)) {
 				gameover = true;
@@ -349,12 +343,14 @@ void cGame::replay()
 	playerController.isDucking = false;
 
 	// Move all the obstacles to the left of the screen so they can respawn
-	for (int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
+	for (unsigned int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
 		SDL_Rect currentPos = obstacleManager.floorObstacles[i].getSpritePos();
 		currentPos.x = -200;
 		obstacleManager.floorObstacles[i].setSpritePos(currentPos);
 	}
 
+
+	// And the bee too
 	SDL_Rect beePos = obstacleManager.airObstacle.getSpritePos();
 	beePos.x = -200;
 	obstacleManager.airObstacle.setSpritePos(beePos);

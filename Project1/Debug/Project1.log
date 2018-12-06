@@ -1,7 +1,8 @@
 ﻿  cGameStuVer.cpp
-c:\users\josh\desktop\programming 1\lab 5\project1\project1\cgamestuver.cpp(160): warning C4018: '<': signed/unsigned mismatch
-c:\users\josh\desktop\programming 1\lab 5\project1\project1\cgamestuver.cpp(224): warning C4018: '<': signed/unsigned mismatch
-c:\users\josh\desktop\programming 1\lab 5\project1\project1\cgamestuver.cpp(352): warning C4018: '<': signed/unsigned mismatch
+  cMainMenu.cpp
+  cPlayerController.cpp
+  FlamingoRun.cpp
+  Generating Code...
   Project1.vcxproj -> C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Debug\Project1.exe
   C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Debug\libpng16.dll
   1 File(s) copied
