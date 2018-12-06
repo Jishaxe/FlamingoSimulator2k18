@@ -126,11 +126,14 @@ void cGame::initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	// And the main menu
 	mainMenu.background.setTexture(theTextureMgr->addTexture("mainmenu", "Images\\mainmenu.png"));
+	mainMenu.gameOverBackground.setTexture(theTextureMgr->addTexture("endmenu", "Images\\endmenu.png"));
 
 	mainMenu.goButtonUnpressed = theTextureMgr->addTexture("go", "Images\\go.png");
 	mainMenu.goButtonPressed = theTextureMgr->addTexture("gopressed", "Images\\gopressed.png");
 	mainMenu.quitButtonUnpressed = theTextureMgr->addTexture("quit", "Images\\quit.png");
 	mainMenu.quitButtonPressed = theTextureMgr->addTexture("quitPressed", "Images\\quitPressed.png");
+	mainMenu.replayButtonUnpressed = theTextureMgr->addTexture("replayButton", "Images\\replayButton.png");
+	mainMenu.replayButtonPressed = theTextureMgr->addTexture("replayButtonPressed", "Images\\replayButtonPressed.png");
 }
 
 void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
@@ -153,9 +156,6 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	SDL_RenderClear(theRenderer);
 	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
 
-	playerSprite.render(theRenderer);
-
-
 	// Render the floor segments
 	for (int i = 0; i < this->floor.segments.size(); i++) {
 		// Get this segment and its texture and rectangle
@@ -171,13 +171,19 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	}
 
 	obstacleManager.render(theRenderer);
+	playerSprite.render(theRenderer);
 
-	scoreManager.render(theRenderer);
 	//SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
 
 	if (mainMenu.active) {
 		mainMenu.render(theRenderer);
 	}
+
+	if (gameover) {
+		mainMenu.renderGameOver(theRenderer);
+	}
+
+	scoreManager.render(theRenderer);
 
 	SDL_RenderPresent(theRenderer);
 }
@@ -219,13 +225,22 @@ void cGame::update(double deltaTime)
 			cSprite* obstacle = &obstacleManager.floorObstacles[i];
 			if (obstacle->isCollidingWith(&playerBoundingBox)) {
 				gameover = true;
+
 				playerController.verticalVelocity = -JUMP_POWER;
+
+				// Save the high score
+				scoreManager.saveScore();
 				continue;
 			}
 		}
 
 		// See if it's colliding with the air obstacle
-		if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) gameover = true;
+		if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) {
+			gameover = true;
+
+			// Save the high score
+			scoreManager.saveScore();
+		}
 	}
 
 	// Only update the main menu if it's active
@@ -235,7 +250,7 @@ void cGame::update(double deltaTime)
 
 	if (gameover) {
 		playerController.deathAnimation(deltaTime);
-		mainMenu.updateGameOverScreen(deltaTime);
+		mainMenu.updateGameOver(deltaTime);
 	}
 }
 
@@ -324,5 +339,24 @@ void cGame::cleanUp(SDL_Window* theSDLWND)
 
 	// Shutdown SDL 2
 	SDL_Quit();
+}
+
+void cGame::replay()
+{
+	scoreManager.currentScore = 0;
+	playerSprite.setAnimation("run");
+	playerController.isOnFloor = true;
+	playerController.isDucking = false;
+
+	// Move all the obstacles to the left of the screen so they can respawn
+	for (int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
+		SDL_Rect currentPos = obstacleManager.floorObstacles[i].getSpritePos();
+		currentPos.x = -200;
+		obstacleManager.floorObstacles[i].setSpritePos(currentPos);
+	}
+
+	SDL_Rect beePos = obstacleManager.airObstacle.getSpritePos();
+	beePos.x = -200;
+	obstacleManager.airObstacle.setSpritePos(beePos);
 }
 

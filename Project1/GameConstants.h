@@ -53,6 +53,8 @@ using namespace std;
 // Y position of the air obstacle
 #define AIR_OBSTACLE_Y 400
 
+// Amount of time to debounce the exit button for 
+#define TIME_TO_DEBOUNCE_EXIT_BUTTON 0.5
 // This header file contains all the constants & enumarated types for the game
 typedef struct fpoint
 {

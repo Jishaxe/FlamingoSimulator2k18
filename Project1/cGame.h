@@ -32,20 +32,20 @@ public:
 	void initialise(SDL_Window* theSDLWND, SDL_Renderer* theRenderer);
 	void run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer);
 	void cleanUp(SDL_Window* theSDLWND);
+	void replay();
 	void render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer);
 	void render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer, double rotAngle, SDL_Point* spriteCentre);
 	void update();
 	void update(double deltaTime);
 	bool getInput(bool theLoop);
 	double getElapsedSeconds();
-
 	static cGame* getInstance();
 
 	bool loop = true;
 	bool gameover = false;
 	int floorHeight;
 private:
-
+	cMainMenu mainMenu;
 	static cGame* pInstance;
 	// for framerates
 	time_point< high_resolution_clock > m_lastTime;
@@ -61,7 +61,6 @@ private:
 	cPlayerController playerController;
 	cObstacleManager obstacleManager;
 	cScoreManager scoreManager;
-	cMainMenu mainMenu;
 	SDL_Rect playerBoundingBox;
 	// Game objects
 };
