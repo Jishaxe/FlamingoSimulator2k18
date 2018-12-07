@@ -164,6 +164,7 @@ xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cFontMgr.cpp" />
     <ClCompile Include="cGameStuVer.cpp" />
+    <ClCompile Include="cInput.cpp" />
     <ClCompile Include="cMenuManager.cpp" />
     <ClCompile Include="cObstacleManager.cpp" />
     <ClCompile Include="cPlayerController.cpp" />
@@ -183,6 +184,7 @@ xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cFontMgr.h" />
     <ClInclude Include="cGame.h" />
+    <ClInclude Include="cInput.h" />
     <ClInclude Include="cMenuManager.h" />
     <ClInclude Include="cObstacleManager.h" />
     <ClInclude Include="cPlayerController.h" />

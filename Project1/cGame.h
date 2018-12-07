@@ -20,6 +20,7 @@ cGame.h
 #include "cAnimatedSprite.h"
 #include "cScoreManager.h"
 #include "cSoundMgr.h"
+#include "cInput.h"
 #include "cFontMgr.h"
 #include "cMenuManager.h"
 
@@ -39,14 +40,15 @@ public:
 	void render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer, double rotAngle, SDL_Point* spriteCentre);
 	void update();
 	void update(double deltaTime);
-	bool getInput(bool theLoop);
 	double getElapsedSeconds();
 	static cGame* getInstance();
 	gameState theGameState;
+	JumpOrDuckInputState inputState;
 	bool loop = true;
 	int floorHeight;
 private:
 	cMenuManager menuManager;
+	cInput input;
 	static cGame* pInstance;
 	// for framerates
 	time_point< high_resolution_clock > m_lastTime;

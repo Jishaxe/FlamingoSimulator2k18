@@ -160,7 +160,7 @@ void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		//We get the time that passed since the last frame
 		double elapsedTime = this->getElapsedSeconds();
 
-		loop = this->getInput(loop);
+		inputState = input.getInput();
 		this->update(elapsedTime);
 		this->render(theSDLWND, theRenderer);
 	}
@@ -282,66 +282,6 @@ void cGame::update(double deltaTime)
 	}
 }
 
-bool cGame::getInput(bool theLoop)
-{
-	SDL_Event event;
-
-	while (SDL_PollEvent(&event))
-	{
-		if (event.type == SDL_QUIT)
-		{
-			theLoop = false;
-		}
-
-		if (event.type == SDL_KEYDOWN) {
-			switch (event.key.keysym.sym)
-			{
-				case SDLK_ESCAPE:
-					theLoop = false;
-					break;
-				case SDLK_w:
-				case SDLK_SPACE:
-				case SDLK_UP:
-					// Make the player jump here
-					playerController.isJumpHeldDown = true;
-					break;
-				case SDLK_s:
-				case SDLK_LCTRL:
-				case SDLK_RCTRL:
-				case SDLK_DOWN:
-					playerController.isDuckHeldDown = true;
-					// Make the player duck here
-					break;
-				default:
-					break;
-			}
-		}
-
-		if (event.type == SDL_KEYUP) {
-			switch (event.key.keysym.sym) {
-				case SDLK_ESCAPE:
-					theLoop = false;
-					break;
-				case SDLK_w:
-				case SDLK_SPACE:
-				case SDLK_UP:
-					// Make the player not jump here
-					playerController.isJumpHeldDown = false;
-					break;
-				case SDLK_s:
-				case SDLK_LCTRL:
-				case SDLK_RCTRL:
-				case SDLK_DOWN:
-					// Make the player not sduck here
-					playerController.isDuckHeldDown = false;
-					break;
-				default:
-					break;
-			}
-		}
-	}
-	return theLoop;
-}
 
 double cGame::getElapsedSeconds()
 {

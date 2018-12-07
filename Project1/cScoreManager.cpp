@@ -33,6 +33,8 @@ void cScoreManager::render(SDL_Renderer * theRenderer)
 
 	// Manually render the texture
 	SDL_RenderCopy(theRenderer, scoreTexture, NULL, &position);
+
+	SDL_DestroyTexture(scoreTexture);
 }
 
 void cScoreManager::update(double deltaTime)

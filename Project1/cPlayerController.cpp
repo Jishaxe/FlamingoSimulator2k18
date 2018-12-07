@@ -22,6 +22,9 @@ void cPlayerController::deathAnimation(double deltaTime) {
 
 void cPlayerController::update(double deltaTime)
 {
+	isJumpHeldDown = cGame::getInstance()->inputState.jumpHeldDown;
+	isDuckHeldDown = cGame::getInstance()->inputState.duckHeldDown;
+
 	// If the jump key has been held down and it is on the floor
 	if (isJumpHeldDown && isOnFloor) {
 		cSoundMgr::getInstance()->getSnd("jump")->play(0);
