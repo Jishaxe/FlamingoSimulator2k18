@@ -33,6 +33,9 @@ public:
 	cAnimatedSprite();
 	cAnimatedSprite(cTexture* texture, int cellWidth);
 	~cAnimatedSprite();
-	virtual SDL_Rect getBoundingBox();
+
+	SDL_Surface* getSurface(); // Get the surface with the pixels of the current frame
+	SDL_Rect getClippingRect(); // Get the rectangle representing the sprite for collision
+	SDL_Rect getBoundingBox();
 };
 

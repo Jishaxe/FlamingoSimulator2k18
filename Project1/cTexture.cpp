@@ -50,6 +50,9 @@ bool cTexture::loadTexture(LPCSTR theFilename, SDL_Renderer *theRenderer) 	// cr
 	// Call SDL_Image IMG_LoadTexture to create the desired texture
 	sdlTextureID = IMG_LoadTexture(theRenderer, theFilename);
 
+	// Load in the surface for collision detection too
+	surface = IMG_Load(theFilename);
+
 	// Check the Texture has been created from the surface
 	if (sdlTextureID != 0)
 	{

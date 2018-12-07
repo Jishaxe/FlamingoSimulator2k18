@@ -46,13 +46,13 @@ JumpOrDuckInputState cInput::getInput()
 			case SDLK_SPACE:
 			case SDLK_UP:
 				// Make the player jump here
-				result.jumpHeldDown = true;
+				keyboardInputState.jumpHeldDown = true;
 				break;
 			case SDLK_s:
 			case SDLK_LCTRL:
 			case SDLK_RCTRL:
 			case SDLK_DOWN:
-				result.duckHeldDown = true;
+				keyboardInputState.duckHeldDown = true;
 				// Make the player duck here
 				break;
 			default:
@@ -66,19 +66,24 @@ JumpOrDuckInputState cInput::getInput()
 			case SDLK_SPACE:
 			case SDLK_UP:
 				// Make the player not jump here
-				result.jumpHeldDown = false;
+				keyboardInputState.jumpHeldDown = false;
 				break;
 			case SDLK_s:
 			case SDLK_LCTRL:
 			case SDLK_RCTRL:
 			case SDLK_DOWN:
 				// Make the player not sduck here
-				result.duckHeldDown = false;
+				keyboardInputState.duckHeldDown = false;
 				break;
 			default:
 				break;
 			}
 		}
 	}
+
+	// Now see if the keyboard buttons are held down and apply this to the final result
+	if (keyboardInputState.duckHeldDown) result.duckHeldDown = true;
+	if (keyboardInputState.jumpHeldDown) result.jumpHeldDown = true;
+
 	return result;
 }

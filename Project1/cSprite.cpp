@@ -182,6 +182,115 @@ void cSprite::scaleSprite()  // set the sprites current scaling
 	this->spriteCentre.y = this->spritePos_2D.h / 2;
 }
 
+SDL_Surface * cSprite::getSurface()
+{
+	return this->getTexture()->surface;
+}
+
+SDL_Rect cSprite::getClippingRect()
+{
+	return SDL_Rect({ 0, 0, this->spriteDimensions.w, this->spriteDimensions.h });
+}
+
+// Is this sprite colliding with another sprite, using per-pixel collision detection?
+bool cSprite::isCollidingWith(cSprite * otherSprite)
+{
+	// TODO: Only check pixels inside the intersection
+	bool isColliding = false;
+
+	// Pull the surfaces from A and B
+	SDL_Surface* surfaceA = getSurface();
+	SDL_Surface* surfaceB = otherSprite->getSurface();
+
+	// And read the positions too
+	SDL_Point posA = { this->getSpritePos().x, this->getSpritePos().y };
+	SDL_Point posB = { otherSprite->getSpritePos().x, otherSprite->getSpritePos().y };
+
+	// Get the clipping rect for both the sprites
+	SDL_Rect rectA = this->getClippingRect();
+	SDL_Rect rectB = otherSprite->getClippingRect();
+
+	// Lock the surfaces so the pixels can be read
+	SDL_LockSurface(surfaceA);
+	SDL_LockSurface(surfaceB);
+
+	Uint32 *pixelsA = (Uint32 *)surfaceA->pixels;
+	Uint32 *pixelsB = (Uint32 *)surfaceB->pixels;
+
+	opaquePixelPositionsA.clear();
+	opaquePixelPositionsB.clear();
+
+	std::cout << "Reading opaque pixels from a total pixel count of " << rectA.w * rectA.h << endl;
+
+	for (int x = rectA.x; x < rectA.x + rectA.w; x++) {
+		for (int y = rectA.y; y < rectA.y + rectA.h; y++) {
+
+			Uint32 pixel = pixelsA[(y * surfaceA->w) + x];
+
+			Uint8 red, green, blue, alpha;
+			SDL_GetRGBA(pixel, surfaceA->format, &red, &green, &blue, &alpha);
+
+			// If this is a non-transparent pixel
+			if (alpha > 0) {
+				opaquePixelPositionsA.push_back(SDL_Point({ x, y }));
+			}
+		}
+	}
+
+	std::cout << "Reading opaque pixels from a total pixel count of " << rectB.w * rectB.h << endl;
+
+	for (int x = rectB.x; x < rectB.x + rectB.w; x++) {
+		for (int y = rectB.y; y < rectB.y + rectB.h; y++) {
+
+			Uint32 pixel = pixelsB[(y * surfaceB->w) + x];
+
+			Uint8 red, green, blue, alpha;
+			SDL_GetRGBA(pixel, surfaceB->format, &red, &green, &blue, &alpha);
+
+			// If this is a non-transparent pixel
+			if (alpha > 0) {
+				opaquePixelPositionsB.push_back(SDL_Point({ x, y }));
+			}
+		}
+	}
+
+
+	std::cout << "Checking " << opaquePixelPositionsA.size() << " opaque pixels against " << opaquePixelPositionsB.size() << std::endl;
+
+	for (unsigned int i = 0; i < opaquePixelPositionsA.size(); i++) {
+		SDL_Point pixelA = opaquePixelPositionsA[i];
+		pixelA = pixelA + posA;
+		pixelA = pixelA - SDL_Point{rectA.x, rectA.y};
+
+		for (unsigned int i2 = 0; i2 < opaquePixelPositionsB.size(); i2++) {
+			SDL_Point pixelB = opaquePixelPositionsB[i2];
+			pixelB = pixelB + posB;
+			pixelB = pixelB - SDL_Point{ rectB.x, rectB.y };
+
+			std::cout << "Comparing [" << pixelA.x << "," << pixelA.y << "] to [" << pixelB.x << ", " << pixelB.y << "]" << endl;
+			if (pixelA.x == pixelB.x && pixelA.y == pixelB.y) {
+				isColliding = true;
+				continue;
+			}
+		}
+
+		if (isColliding) continue;
+	}
+
+	SDL_UnlockSurface(surfaceA);
+	SDL_UnlockSurface(surfaceB);
+
+	std::cout << "isColliding: " << isColliding << endl;
+	//delete surfaceA;
+	//delete surfaceB;
+	//delete pixelsA;
+
+	return isColliding;
+}
+
+
+
+// Collision with bounding box
 bool cSprite::isCollidingWith(SDL_Rect * b)
 {
 	SDL_Rect a = getBoundingBox();

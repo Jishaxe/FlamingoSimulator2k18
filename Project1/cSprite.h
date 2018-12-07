@@ -11,7 +11,6 @@ cSprite.h
 #include "cTextureMgr.h"
 #include "cTexture.h"
 
-
 class cSprite
 {
 private:
@@ -28,6 +27,8 @@ private:
 	int textureWidth;
 	int textureHeight;
 
+	std::vector<SDL_Point> opaquePixelPositionsA;
+	std::vector<SDL_Point> opaquePixelPositionsB;
 
 public:
 	cSprite();			// Default constructor
@@ -46,7 +47,12 @@ public:
 	FPoint getSpriteScale();  // Return the sprites scaling factor
 	void setSpriteScale(FPoint sScale); // set the sprites scaling factor
 	void scaleSprite(); // update the sprites width & height
+
+	bool isCollidingWith(cSprite * otherSprite);
 	bool isCollidingWith(SDL_Rect * b);
+
+	virtual SDL_Surface* getSurface(); // Get the surface with the pixels of this sprite
+	virtual SDL_Rect getClippingRect(); // Get the rectangle representing the sprite for collision
 	virtual SDL_Rect getBoundingBox(); 
 	void renderBoundingBox(SDL_Renderer* theRenderer);
 };

@@ -8,8 +8,14 @@
 
 
 struct JumpOrDuckInputState {
-	bool duckHeldDown;
-	bool jumpHeldDown;
+	bool duckHeldDown = false;
+	bool jumpHeldDown = false;
+};
+
+// This is whether the duck/jump keys are held down on the keyboard, as we only get keydown/keyup events here
+struct KeyboardInputState {
+	bool duckHeldDown = false;
+	bool jumpHeldDown = false;
 };
 
 class cInput
@@ -21,6 +27,7 @@ private:
 public:
 	cInput();
 	~cInput();
+	KeyboardInputState keyboardInputState;
 
 	JumpOrDuckInputState getInput();
 };

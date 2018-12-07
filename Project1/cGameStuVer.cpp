@@ -240,23 +240,32 @@ void cGame::update(double deltaTime)
 			// See if it's colliding with any of the floor obstacles
 			for (unsigned int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
 				cSprite* obstacle = &obstacleManager.floorObstacles[i];
+
+				
 				if (obstacle->isCollidingWith(&playerBoundingBox)) {
-					theGameState = gameState::gameover;
+					std::cout << "Bounding boxes have touched, doing pixel perfect checks" << std::endl;
 
-					// Play the game over sound
-					cSoundMgr::getInstance()->stopMusic();
-					cSoundMgr::getInstance()->getSnd("endgametheme")->play(-1);
+					// Bounding boxes are colliding, now do pixel perfect checks
+					if (playerSprite.isCollidingWith(obstacle)) {
+						theGameState = gameState::gameover;
 
-					cSoundMgr::getInstance()->getSnd("death")->play(0);
-					// Launch the boye into the air
-					playerController.verticalVelocity = -JUMP_POWER;
+						// Play the game over sound
+						cSoundMgr::getInstance()->stopMusic();
+						cSoundMgr::getInstance()->getSnd("endgametheme")->play(-1);
 
-					// Save the high score
-					scoreManager.saveScore();
-					continue;
+						cSoundMgr::getInstance()->getSnd("death")->play(0);
+						// Launch the boye into the air
+						playerController.verticalVelocity = -JUMP_POWER;
+
+						// Save the high score
+						scoreManager.saveScore();
+						continue;
+					}
+
 				}
 			}
 
+			/*
 			// See if it's colliding with the air obstacle
 			if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) {
 				theGameState = gameState::gameover;
@@ -269,7 +278,7 @@ void cGame::update(double deltaTime)
 				// Save the high score
 				scoreManager.saveScore();
 			}
-			
+			*/
 			break;
 
 		case gameState::mainmenu:

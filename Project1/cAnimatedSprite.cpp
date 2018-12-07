@@ -69,6 +69,16 @@ void cAnimatedSprite::addAnimation(std::string name, int frames[], int frameCoun
 	this->setAnimation(name);
 }
 
+SDL_Surface * cAnimatedSprite::getSurface()
+{
+	return this->texture->surface;
+}
+
+SDL_Rect cAnimatedSprite::getClippingRect()
+{
+	return this->currentAnimation->frames[this->currentFrame];
+}
+
 // Set the animation by name
 void cAnimatedSprite::setAnimation(std::string name)
 {
