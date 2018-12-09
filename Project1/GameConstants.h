@@ -43,6 +43,7 @@ using namespace std;
 #define WINDOW_HEIGHT 768
 
 // Speed the floor moves at
+//#define FLOOR_SPEED 10
 #define FLOOR_SPEED 10
 
 // Maximum amount of floor obstacles in the floor. After this point, they are reused

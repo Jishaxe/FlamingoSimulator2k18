@@ -193,10 +193,14 @@ SDL_Rect cSprite::getClippingRect()
 }
 
 // Is this sprite colliding with another sprite, using per-pixel collision detection?
-bool cSprite::isCollidingWith(cSprite * otherSprite)
+bool cSprite::isCollidingWithPerPixel(cSprite * otherSprite)
 {
-	// TODO: Only check pixels inside the intersection
-	bool isColliding = false;
+	// Start by getting the two boiunding boxes
+	SDL_Rect boundingA = this->getBoundingBox();
+	SDL_Rect boundingB = otherSprite->getBoundingBox();
+
+	// Calculate intersection between bounding boxes of both
+	SDL_IntersectRect(&boundingA, &boundingB, &intersectRect);
 
 	// Pull the surfaces from A and B
 	SDL_Surface* surfaceA = getSurface();
@@ -210,82 +214,39 @@ bool cSprite::isCollidingWith(cSprite * otherSprite)
 	SDL_Rect rectA = this->getClippingRect();
 	SDL_Rect rectB = otherSprite->getClippingRect();
 
-	// Lock the surfaces so the pixels can be read
-	SDL_LockSurface(surfaceA);
-	SDL_LockSurface(surfaceB);
-
+	// And grab the raw pixels from the surfaces
 	Uint32 *pixelsA = (Uint32 *)surfaceA->pixels;
 	Uint32 *pixelsB = (Uint32 *)surfaceB->pixels;
 
-	opaquePixelPositionsA.clear();
-	opaquePixelPositionsB.clear();
+	// To store the pixel data in
+	Uint8 red, green, blue, alpha;
 
-	std::cout << "Reading opaque pixels from a total pixel count of " << rectA.w * rectA.h << endl;
+	// For every pixel in the intersected rectangle...
+	for (int x = intersectRect.x; x < intersectRect.x + intersectRect.w; x++) {
+		for (int y = intersectRect.y; y < intersectRect.y + intersectRect.h; y++) {
+			// Grab the pixels in that position from both textures, factoring in world position and the current frame if animated
+			Uint32 thisPixel = pixelsA[((y - posA.y - rectA.y) * surfaceA->w) + (x - posA.x - rectA.x)];
+			Uint32 otherPixel = pixelsB[((y - posB.y - rectB.y) * surfaceB->w) + (x - posB.x - rectB.x)];
 
-	for (int x = rectA.x; x < rectA.x + rectA.w; x++) {
-		for (int y = rectA.y; y < rectA.y + rectA.h; y++) {
+			// Check alpha for first pixel
+			SDL_GetRGBA(thisPixel, surfaceB->format, &red, &green, &blue, &alpha);
 
-			Uint32 pixel = pixelsA[(y * surfaceA->w) + x];
-
-			Uint8 red, green, blue, alpha;
-			SDL_GetRGBA(pixel, surfaceA->format, &red, &green, &blue, &alpha);
-
-			// If this is a non-transparent pixel
 			if (alpha > 0) {
-				opaquePixelPositionsA.push_back(SDL_Point({ x, y }));
-			}
-		}
-	}
+				// Check alpha for second pixel
+				SDL_GetRGBA(otherPixel, surfaceB->format, &red, &green, &blue, &alpha);
 
-	std::cout << "Reading opaque pixels from a total pixel count of " << rectB.w * rectB.h << endl;
+				// If they're both in the same position and are opaque, they are colliding. Early exit true
+				if (alpha > 0) {
+					return true;
+				}
 
-	for (int x = rectB.x; x < rectB.x + rectB.w; x++) {
-		for (int y = rectB.y; y < rectB.y + rectB.h; y++) {
-
-			Uint32 pixel = pixelsB[(y * surfaceB->w) + x];
-
-			Uint8 red, green, blue, alpha;
-			SDL_GetRGBA(pixel, surfaceB->format, &red, &green, &blue, &alpha);
-
-			// If this is a non-transparent pixel
-			if (alpha > 0) {
-				opaquePixelPositionsB.push_back(SDL_Point({ x, y }));
 			}
 		}
 	}
 
 
-	std::cout << "Checking " << opaquePixelPositionsA.size() << " opaque pixels against " << opaquePixelPositionsB.size() << std::endl;
-
-	for (unsigned int i = 0; i < opaquePixelPositionsA.size(); i++) {
-		SDL_Point pixelA = opaquePixelPositionsA[i];
-		pixelA = pixelA + posA;
-		pixelA = pixelA - SDL_Point{rectA.x, rectA.y};
-
-		for (unsigned int i2 = 0; i2 < opaquePixelPositionsB.size(); i2++) {
-			SDL_Point pixelB = opaquePixelPositionsB[i2];
-			pixelB = pixelB + posB;
-			pixelB = pixelB - SDL_Point{ rectB.x, rectB.y };
-
-			std::cout << "Comparing [" << pixelA.x << "," << pixelA.y << "] to [" << pixelB.x << ", " << pixelB.y << "]" << endl;
-			if (pixelA.x == pixelB.x && pixelA.y == pixelB.y) {
-				isColliding = true;
-				continue;
-			}
-		}
-
-		if (isColliding) continue;
-	}
-
-	SDL_UnlockSurface(surfaceA);
-	SDL_UnlockSurface(surfaceB);
-
-	std::cout << "isColliding: " << isColliding << endl;
-	//delete surfaceA;
-	//delete surfaceB;
-	//delete pixelsA;
-
-	return isColliding;
+	// No intersection was found
+	return false;
 }
 
 
@@ -305,5 +266,6 @@ SDL_Rect cSprite::getBoundingBox()
 
 void cSprite::renderBoundingBox(SDL_Renderer * theRenderer)
 {
-	SDL_RenderDrawRect(theRenderer, &getBoundingBox());
+	SDL_RenderDrawRect(theRenderer, &intersectRect);
+	//SDL_RenderDrawRect(theRenderer, &getBoundingBox());
 }

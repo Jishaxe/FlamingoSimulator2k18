@@ -187,6 +187,7 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	obstacleManager.render(theRenderer);
 	playerSprite.render(theRenderer);
+	//playerSprite.renderBoundingBox(theRenderer);
 
 	//SDL_RenderDrawRect(theRenderer, &playerBoundingBox);
 
@@ -243,10 +244,9 @@ void cGame::update(double deltaTime)
 
 				
 				if (obstacle->isCollidingWith(&playerBoundingBox)) {
-					std::cout << "Bounding boxes have touched, doing pixel perfect checks" << std::endl;
 
 					// Bounding boxes are colliding, now do pixel perfect checks
-					if (playerSprite.isCollidingWith(obstacle)) {
+					if (playerSprite.isCollidingWithPerPixel(obstacle)) {
 						theGameState = gameState::gameover;
 
 						// Play the game over sound
@@ -265,20 +265,23 @@ void cGame::update(double deltaTime)
 				}
 			}
 
-			/*
+			
 			// See if it's colliding with the air obstacle
 			if (obstacleManager.airObstacle.isCollidingWith(&playerBoundingBox)) {
-				theGameState = gameState::gameover;
+				// Bounding boxes are colliding, now do pixel perfect checks
+				if (playerSprite.isCollidingWithPerPixel(&obstacleManager.airObstacle)) {
+					theGameState = gameState::gameover;
 
-				// Play the game over sound
-				cSoundMgr::getInstance()->stopMusic();
-				cSoundMgr::getInstance()->getSnd("endgametheme")->play(-1);
-				cSoundMgr::getInstance()->getSnd("death")->play(0);
+					// Play the game over sound
+					cSoundMgr::getInstance()->stopMusic();
+					cSoundMgr::getInstance()->getSnd("endgametheme")->play(-1);
+					cSoundMgr::getInstance()->getSnd("death")->play(0);
 
-				// Save the high score
-				scoreManager.saveScore();
+					// Save the high score
+					scoreManager.saveScore();
+				}
 			}
-			*/
+			
 			break;
 
 		case gameState::mainmenu:

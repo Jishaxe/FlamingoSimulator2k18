@@ -8,8 +8,17 @@ cSprite.h
 #ifndef _CSPRITE_H
 #define _CSPRITE_H
 
+#include <cmath>
 #include "cTextureMgr.h"
 #include "cTexture.h"
+
+struct Pixel {
+	int x;
+	int y;
+	int r;
+	int g;
+	int b;
+};
 
 class cSprite
 {
@@ -27,9 +36,7 @@ private:
 	int textureWidth;
 	int textureHeight;
 
-	std::vector<SDL_Point> opaquePixelPositionsA;
-	std::vector<SDL_Point> opaquePixelPositionsB;
-
+	SDL_Rect intersectRect;
 public:
 	cSprite();			// Default constructor
 	cSprite(cTexture* theSpriteTexture);			// Default constructor
@@ -48,7 +55,7 @@ public:
 	void setSpriteScale(FPoint sScale); // set the sprites scaling factor
 	void scaleSprite(); // update the sprites width & height
 
-	bool isCollidingWith(cSprite * otherSprite);
+	bool isCollidingWithPerPixel(cSprite * otherSprite);
 	bool isCollidingWith(SDL_Rect * b);
 
 	virtual SDL_Surface* getSurface(); // Get the surface with the pixels of this sprite

@@ -163,6 +163,7 @@ void cObstacleManager::render(SDL_Renderer * renderer)
 		destRect.w = floor->getTexture()->getTWidth();
 		destRect.h = floor->getTexture()->getTHeight();
 		floor->render(renderer, &floor->getSpriteDimensions(), &destRect, FPoint() = { 1, 1 });
+		floor->renderBoundingBox(renderer);
 	}
 
 	// Render clouds
