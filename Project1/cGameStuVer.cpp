@@ -171,20 +171,8 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 	SDL_RenderClear(theRenderer);
 	spriteBkgd.render(theRenderer, NULL, NULL, spriteBkgd.getSpriteScale());
 
-	// Render the floor segments
-	for (unsigned int i = 0; i < this->floor.segments.size(); i++) {
-		// Get this segment and its texture and rectangle
-		FloorSegmentPosition segment = this->floor.segments[i];
-		SDL_Texture* tex = segment.texture->getTexture();
-		SDL_Rect dest = segment.rect;
 
-		// Add the camera position to the segment position so it moves
-		dest.x += this->floor.x;
-
-		// Render this segment
-		segment.texture->renderTexture(theRenderer, tex, NULL, &dest, FPoint() = { 1, 1 });
-	}
-
+	floor.render(theRenderer);
 	obstacleManager.render(theRenderer);
 	playerSprite.render(theRenderer);
 	//playerSprite.renderBoundingBox(theRenderer);
@@ -238,6 +226,7 @@ void cGame::update(double deltaTime)
 			// And when it is ducking the box goes down lower
 			if (playerController.isDucking) playerBoundingBox.y += 50;
 
+			
 			// See if it's colliding with any of the floor obstacles
 			for (unsigned int i = 0; i < obstacleManager.floorObstacles.size(); i++) {
 				cSprite* obstacle = &obstacleManager.floorObstacles[i];

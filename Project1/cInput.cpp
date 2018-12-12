@@ -84,6 +84,5 @@ JumpOrDuckInputState cInput::getInput()
 	// Now see if the keyboard buttons are held down and apply this to the final result
 	if (keyboardInputState.duckHeldDown) result.duckHeldDown = true;
 	if (keyboardInputState.jumpHeldDown) result.jumpHeldDown = true;
-
 	return result;
 }

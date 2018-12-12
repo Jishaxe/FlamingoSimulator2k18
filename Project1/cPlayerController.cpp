@@ -42,7 +42,7 @@ void cPlayerController::update(double deltaTime)
 
 	// If duck button is not being held down but is currently ducking, as well as the jump button isn't being held down and is also on the floor
 	// then play running animation
-	if (!isDuckHeldDown && playerSprite->currentAnimation->name == "duck" && !isJumpHeldDown && isOnFloor) {
+	if (!isDuckHeldDown && isDucking && !isJumpHeldDown && isOnFloor) {
 		playerSprite->setAnimation("run");
 		isDucking = false;
 	}

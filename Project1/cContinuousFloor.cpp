@@ -75,6 +75,21 @@ cContinuousFloor::cContinuousFloor() {
 
 }
 
+void cContinuousFloor::render(SDL_Renderer* theRenderer) {
+	// Render the floor segments
+	for (unsigned int i = 0; i < this->segments.size(); i++) {
+		// Get this segment and ts texture and rectangle
+		FloorSegmentPosition segment = this->segments[i];
+		SDL_Texture* tex = segment.texture->getTexture();
+		SDL_Rect dest = segment.rect;
+
+		// Add the camera position to the segment position so it moves
+		dest.x += this->x;
+
+		// Render this segment
+		segment.texture->renderTexture(theRenderer, tex, NULL, &dest, FPoint() = { 1, 1 });
+	}	
+}
 
 cContinuousFloor::cContinuousFloor(int screenWidth, int screenHeight)
 {

@@ -27,6 +27,7 @@ public:
 	cTexture* getRandomTexture();
 	cContinuousFloor(int screenWidth, int screenHeight);
 	cContinuousFloor();
+	void render(SDL_Renderer * theRenderer);
 	~cContinuousFloor();
 };
 

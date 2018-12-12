@@ -27,6 +27,9 @@ private:
 public:
 	cInput();
 	~cInput();
+
+	// The current input state only from the keyboard, 
+	// this is persisted as we only get events from keyboards, rather than checking once a tick
 	KeyboardInputState keyboardInputState;
 
 	JumpOrDuckInputState getInput();
