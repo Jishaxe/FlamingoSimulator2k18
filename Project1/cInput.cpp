@@ -14,7 +14,7 @@ cInput::~cInput()
 JumpOrDuckInputState cInput::getInput()
 {
 	// Results defaults to false
-	JumpOrDuckInputState result = { false, false };
+	JumpOrDuckInputState result = { false, false, false };
 
 
 	SDL_Event event;
@@ -39,6 +39,9 @@ JumpOrDuckInputState cInput::getInput()
 
 	while (SDL_PollEvent(&event))
 	{
+		// Pass the exit back to the game
+		if (event.type == SDL_QUIT) result.exit = true;
+
 		if (event.type == SDL_KEYDOWN) {
 			switch (event.key.keysym.sym)
 			{

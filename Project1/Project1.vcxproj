@@ -120,15 +120,15 @@ xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(ProjectDir)..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Debug\libpng16.dll" "$(OutDir)"
+      <Command>xcopy /Y "$(ProjectDir)..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Release\libpng16.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll" "$(OutDir)"
-xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll" "$(OutDir)"
+xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Release\freetype262.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"
 xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"
-xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
+xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,15 +143,15 @@ xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(ProjectDir)..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Debug\libpng16.dll" "$(OutDir)"
+      <Command>xcopy /Y "$(ProjectDir)..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Release\libpng16.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll" "$(OutDir)"
-xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Debug\freetype262d.dll" "$(OutDir)"
+xcopy /Y "$(ProjectDir)..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Release\freetype262.dll" "$(OutDir)"
 xcopy /Y "$(ProjectDir)Images\*.*" "$(OutDir)Images\"
 xcopy /Y "$(ProjectDir)Fonts\*.*" "$(OutDir)Fonts\"
-xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
+xcopy /Y "$(ProjectDir)Sounds\*.*" "$(OutDir)Sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

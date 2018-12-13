@@ -161,6 +161,10 @@ void cGame::run(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 		double elapsedTime = this->getElapsedSeconds();
 
 		inputState = input.getInput();
+		if (inputState.exit) {
+			loop = false;
+			continue;
+		}
 		this->update(elapsedTime);
 		this->render(theSDLWND, theRenderer);
 	}

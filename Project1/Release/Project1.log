@@ -1,0 +1,51 @@
+﻿  FlamingoRun.cpp
+  cGameStuVer.cpp
+  cInput.cpp
+  cMenuManager.cpp
+  cPlayerController.cpp
+  Generating code
+  14 of 1182 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Project1.vcxproj -> C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Release\Project1.exe
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\libpng.redist.1.6.19.1\build\native\bin\Win32\v140\dynamic\Release\libpng16.dll
+  1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\Win32\Release\zlib.dll
+  1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\..\packages\freetype.redist.2.6.2.1\build\native\bin\Win32\v140\dynamic\Release\freetype262.dll
+  1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\background.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\bee.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cactus1.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cactus2.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cloud1.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cloud2.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\cloud3.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\endmenu.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor1.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor2.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor3.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor4.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\floor5.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\go.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\gopressed.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\mainmenu.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\planet.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\player.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\quit.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\quitpressed.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\replayButton.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\replayButtonPressed.png
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Images\Road.png
+  23 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Fonts\unifont.ttf
+  1 File(s) copied
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\death-old1.wav
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\death.wav
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\duck.mp3
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\endgametheme.mp3
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\ingametheme.mp3
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\jump.wav
+  C:\Users\Josh\Desktop\Programming 1\Lab 5\Project1\Project1\Sounds\mainmenutheme.mp3
+  7 File(s) copied

@@ -10,6 +10,7 @@
 struct JumpOrDuckInputState {
 	bool duckHeldDown = false;
 	bool jumpHeldDown = false;
+	bool exit = false;
 };
 
 // This is whether the duck/jump keys are held down on the keyboard, as we only get keydown/keyup events here
