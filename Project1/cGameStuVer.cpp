@@ -181,7 +181,7 @@ void cGame::render(SDL_Window* theSDLWND, SDL_Renderer* theRenderer)
 
 	// Render main menu if that is the state
 	if (theGameState == gameState::mainmenu) {
-		menuManager.render(theRenderer);
+		menuManager.renderMainMenu(theRenderer);
 	}
 
 	// Render game over if that is the state
@@ -274,7 +274,7 @@ void cGame::update(double deltaTime)
 			break;
 
 		case gameState::mainmenu:
-			menuManager.update(deltaTime);
+			menuManager.updateMainMenu(deltaTime);
 			break;
 		case gameState::gameover:
 			playerController.deathAnimation(deltaTime);

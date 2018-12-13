@@ -12,14 +12,6 @@ cSprite.h
 #include "cTextureMgr.h"
 #include "cTexture.h"
 
-struct Pixel {
-	int x;
-	int y;
-	int r;
-	int g;
-	int b;
-};
-
 class cSprite
 {
 private:

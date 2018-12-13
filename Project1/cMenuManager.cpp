@@ -2,7 +2,7 @@
 #include "cGame.h"
 
 
-void cMenuManager::update(double deltaTime)
+void cMenuManager::updateMainMenu(double deltaTime)
 {	
 	// Get the x and y of the mouse 
 	int x, y;
@@ -105,7 +105,7 @@ void cMenuManager::updateGameOver(double deltaTime)
 	else quitButton.setTexture(this->quitButtonUnpressed); // If the mouse is not over the button, set the texture
 }
 
-void cMenuManager::render(SDL_Renderer * theRenderer)
+void cMenuManager::renderMainMenu(SDL_Renderer * theRenderer)
 {
 	// Render the background
 	background.render(theRenderer, NULL, NULL, FPoint{1, 1});

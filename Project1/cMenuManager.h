@@ -17,9 +17,9 @@ public:
 
 	cTexture* replayButtonPressed;
 	cTexture* replayButtonUnpressed;
-	void update(double deltaTime);
+	void updateMainMenu(double deltaTime);
 	void updateGameOver(double deltaTime);
-	void render(SDL_Renderer* theRenderer);
+	void renderMainMenu(SDL_Renderer* theRenderer);
 	void renderGameOver(SDL_Renderer* theRenderer);
 	cMenuManager();
 	~cMenuManager();
